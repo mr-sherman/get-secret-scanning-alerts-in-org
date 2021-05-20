@@ -13,8 +13,7 @@ var buffer = ""
 
 const [, , ...args] = process.argv
 const owner = args[0]
-
-console.log("org,repo,tool,rule_id,severity,open,created_at,closed_by,closed_at,url,closed_reason")
+console.log("org,repo,secret_type,secret,state,resolved_at, url")
 octokit
   .paginate(octokit.repos.listForOrg, {
       org: owner,
@@ -27,7 +26,7 @@ octokit
       const repo = repository.name
 
       return octokit
-        .paginate("GET /repos/:owner/:repo/code-scanning/alerts?per_page=100", {
+        .paginate("GET /repos/:owner/:repo/secret-scanning/alerts?per_page=100", {
           owner: owner,
           repo: repo
         })
@@ -35,8 +34,7 @@ octokit
           if (alerts.length > 0) {
 
             pReduce(alerts, (alert) => {
-              console.log(`${owner},${repo},${alert.tool.name},${alert.rule.id},${alert.rule.severity},${alert.state},${alert.created_at},${alert.dismissed_by},${alert.dismissed_at},${alert.html_url},${alert.dismissed_reason}`)
-            }) 
+              console.log(`${owner},${repo},${alert.secret_type},${alert.secret},${alert.state},${alert.resolved_at},${alert.url}`)            }) 
           } 
           delay(300);
         })
