@@ -4,12 +4,28 @@ require('dotenv').config()
 const pReduce = require('./lib/p-reduce');
 const delay = require('delay');
 const {Octokit} = require('@octokit/rest')
-const octokit = new Octokit({
-  auth: process.env.GH_AUTH_TOKEN,
-  previews: ['dorian-preview']
-})
+
 
 var buffer = ""
+var base_url = ''
+
+if (args.length > 0)
+  base_url = args[1]
+
+  if (base_url.length > 0)
+  {
+    octokit = new Octokit({
+      auth: process.env.GH_AUTH_TOKEN,
+      previews: ['dorian-preview'],
+      baseUrl: base_url + '/api/v3'
+    });
+  }
+  else
+  {
+    octokit = new Octokit({
+      auth: process.env.GH_AUTH_TOKEN,
+      previews: ['dorian-preview']
+    });
 
 const [, , ...args] = process.argv
 const owner = args[0]
