@@ -26,6 +26,7 @@ if (args.length > 0)
       auth: process.env.GH_AUTH_TOKEN,
       previews: ['dorian-preview']
     });
+  }
 
 const [, , ...args] = process.argv
 const owner = args[0]
