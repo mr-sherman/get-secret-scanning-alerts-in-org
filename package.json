@@ -9,7 +9,7 @@
   "author": "GitHub",
   "license": "MIT",
   "dependencies": {
-    "@octokit/rest": "^19.0.13",
+    "@octokit/rest": "^21.1.1",
     "delay": "^4.4.0",
     "dotenv": "^8.2.0",
     "p-reduce": "^2.1.0"
